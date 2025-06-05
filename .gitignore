@@ -1,0 +1,14 @@
+.idea
+
+# Ignore extracted NuGet package folders
+uipcli/UiPath.CLI.24.10.9050.17872/
+uipcli/UiPath.CLI.Windows.24.10.9050.17872/
+
+# Build artifacts
+bin/
+UiPath.Extensions.CommandLine.E2E.Tests/obj/
+obj/
+*.dll
+*.pdb
+*.cache
+*.user

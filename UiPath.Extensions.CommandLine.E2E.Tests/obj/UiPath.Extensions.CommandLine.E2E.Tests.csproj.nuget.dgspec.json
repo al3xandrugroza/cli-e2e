@@ -1,0 +1,104 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\al3xa\\repos\\cli-e2e\\UiPath.Extensions.CommandLine.E2E.Tests\\UiPath.Extensions.CommandLine.E2E.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\al3xa\\repos\\cli-e2e\\UiPath.Extensions.CommandLine.E2E.Tests\\UiPath.Extensions.CommandLine.E2E.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\al3xa\\repos\\cli-e2e\\UiPath.Extensions.CommandLine.E2E.Tests\\UiPath.Extensions.CommandLine.E2E.Tests.csproj",
+        "projectName": "UiPath.Extensions.CommandLine.E2E.Tests",
+        "projectPath": "C:\\Users\\al3xa\\repos\\cli-e2e\\UiPath.Extensions.CommandLine.E2E.Tests\\UiPath.Extensions.CommandLine.E2E.Tests.csproj",
+        "packagesPath": "C:\\Users\\al3xa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\al3xa\\repos\\cli-e2e\\UiPath.Extensions.CommandLine.E2E.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\al3xa\\repos\\cli-e2e\\NuGet.Config",
+          "C:\\Users\\al3xa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/al3xandrugroza/UiPathCLI/_packaging/uipcli/nuget/v3/index.json": {},
+          "https://www.myget.org/F/workflow": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.1.0, )"
+            },
+            "NuGet.Packaging": {
+              "target": "Package",
+              "version": "[6.7.1, )"
+            },
+            "UiPath.Orchestrator.Web.ClientV3": {
+              "target": "Package",
+              "version": "[24.10.0-standalone-beta.28, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Users\\al3xa\\.dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

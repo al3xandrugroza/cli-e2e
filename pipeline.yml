@@ -30,7 +30,8 @@ stages:
     jobs:
       - job: StartVMs
         displayName: "Start Azure VMs for UiPath Robots"
-        vmImage: "ubuntu-latest"
+        pool:
+          vmImage: "ubuntu-latest"
         steps:
           - task: AzureCLI@2
             displayName: "Start robot-cloud-vm-1"
@@ -68,7 +69,8 @@ stages:
     jobs:
       - job: BuildPackages
         displayName: "Build and publish CLI packages"
-        vmImage: "ubuntu-latest"
+        pool:
+          vmImage: "ubuntu-latest"
         steps:
           - task: PublishPipelineArtifact@1
             displayName: "Publish Windows CLI Package"
@@ -89,7 +91,8 @@ stages:
         dependsOn: Build
         jobs:
           - job: ${{ e2eTestStage.stage }}
-            vmImage: ${{ e2eTestStage.vmImage }}
+            pool:
+              vmImage: ${{ e2eTestStage.vmImage }}
             workspace:
               clean: all
             timeoutInMinutes: 180
@@ -148,7 +151,8 @@ stages:
     jobs:
       - job: StopVMs
         displayName: "Stop and deallocate Azure VMs"
-        vmImage: "ubuntu-latest"
+        pool:
+          vmImage: "ubuntu-latest"
         steps:
           - task: AzureCLI@2
             displayName: "Deallocate robot-cloud-vm-1"

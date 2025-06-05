@@ -1,0 +1,61 @@
+{
+  "name": "ProjectWithPublicFeedsDependencies_CrossPlatform_VB",
+  "projectId": "49ac5792-b015-418a-b36f-1f38ee057316",
+  "description": "cli e2e",
+  "main": "Main.xaml",
+  "dependencies": {
+    "CredentialManagement.Standard": "[1.0.4]",
+    "InternalLabs.GPT.Activities": "[1.0.0]",
+    "Microsoft.ApplicationInsights": "[2.21.0]",
+    "UiPath.System.Activities": "[23.12.0-alpha.4620227]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "23.6.0.0",
+  "projectVersion": "1.0.0",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": false,
+    "supportsPersistence": false,
+    "workflowSerialization": "DataContract",
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": true,
+    "pipType": "ChildSession"
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": true
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "10d843e7-1bd8-4b44-89d4-4b2fbf9abe92",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Portable"
+}

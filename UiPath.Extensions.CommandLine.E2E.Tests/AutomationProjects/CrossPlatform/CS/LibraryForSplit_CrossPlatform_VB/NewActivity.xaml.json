@@ -1,0 +1,65 @@
+{
+  "DisplayName": "NewActivity",
+  "Tooltip": null,
+  "HelpLink": null,
+  "Color": null,
+  "OriginalIconFileName": null,
+  "Arguments": [
+    {
+      "Name": "argument1",
+      "DisplayName": "argument1",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": "Dropdown",
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": [
+        "a",
+        "b",
+        "f"
+      ]
+    },
+    {
+      "Name": "argument2",
+      "DisplayName": "argument2",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": "NullableBoolean",
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": []
+    },
+    {
+      "Name": "argument3",
+      "DisplayName": "argument3",
+      "Category": "Category",
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": "Number",
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "argument4",
+      "DisplayName": "argument4",
+      "Category": "Category",
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": "RadioGroup",
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": [
+        "a",
+        "v",
+        "b"
+      ]
+    }
+  ]
+}

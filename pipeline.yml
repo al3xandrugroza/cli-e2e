@@ -1,0 +1,186 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - master
+      - main
+  paths:
+    exclude:
+      - README.md
+      - .gitignore
+
+parameters:
+  - name: E2E_TEST_PIPELINE_STAGES
+    type: object
+    default:
+      - stage: "E2E_Test_On_Windows"
+        displayName: "End to end tests on Windows agent"
+        agentName: "ado-windows"
+        filterAgent: "Windows"
+
+      - stage: "E2E_Test_On_Linux"
+        displayName: "End to end tests on Linux agent"
+        agentName: "ado-ubuntu"
+        filterAgent: "Linux"
+
+stages:
+  - stage: StartRobots
+    displayName: "Start UiPath Robot VMs"
+    jobs:
+      - job: StartVMs
+        displayName: "Start Azure VMs for UiPath Robots"
+        pool:
+          name: Default
+          demands:
+            - agent.name -equals ado-ubuntu
+        steps:
+          - task: AzureCLI@2
+            displayName: "Start robot-cloud-vm-1"
+            inputs:
+              azureSubscription: 'azure-resource-manager'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Starting robot-cloud-vm-1..."
+                az vm start --resource-group acs-diploma-rg --name robot-cloud-vm-1
+                echo "robot-cloud-vm-1 started successfully"
+
+          - task: AzureCLI@2
+            displayName: "Start robot-cloud-vm-2"
+            inputs:
+              azureSubscription: 'azure-resource-manager'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Starting robot-cloud-vm-2..."
+                az vm start --resource-group acs-diploma-rg --name robot-cloud-vm-2
+                echo "robot-cloud-vm-2 started successfully"
+
+          - task: PowerShell@2
+            displayName: "Wait for VMs to be fully ready"
+            inputs:
+              targetType: 'inline'
+              script: |
+                Write-Host "Waiting 5 minutes for VMs to be fully ready..."
+                Start-Sleep -Seconds 300
+
+  - stage: Build
+    displayName: "Build CLI Packages"
+    dependsOn: StartRobots
+    jobs:
+      - job: BuildPackages
+        displayName: "Build and publish CLI packages"
+        pool:
+          name: Default
+          demands:
+            - agent.name -equals ado-ubuntu
+        steps:
+          - task: PublishPipelineArtifact@1
+            displayName: "Publish Windows CLI Package"
+            inputs:
+              targetPath: 'uipcli/UiPath.CLI.Windows.24.10.9050.17872.nupkg'
+              artifact: 'Packages'
+              publishLocation: 'pipeline'
+
+          - task: PublishPipelineArtifact@1
+            displayName: "Publish CrossPlatform CLI Package"
+            inputs:
+              targetPath: 'uipcli/UiPath.CLI.24.10.9050.17872.nupkg'
+              artifact: 'Packages-CrossPlatform'
+              publishLocation: 'pipeline'
+  - ${{each e2eTestStage in parameters.E2E_TEST_PIPELINE_STAGES}}:
+      - stage: ${{ e2eTestStage.stage }}
+        displayName: ${{ e2eTestStage.displayName }}
+        dependsOn: Build
+        jobs:
+          - job: ${{ e2eTestStage.stage }}
+            pool:
+              name: Default
+              demands:
+                - agent.name -equals ${{ e2eTestStage.agentName }}
+            workspace:
+              clean: all
+            timeoutInMinutes: 180
+            steps:
+              - download: current
+                displayName: 'Download Windows.CLI'
+                artifact: 'Packages'
+              - download: current
+                displayName: 'Download CrossPlatform.CLI'
+                artifact: 'Packages-CrossPlatform'
+
+              - powershell: |
+                  $nupkgPath = Get-Item -Path "$(Pipeline.Workspace)/Packages/*.nupkg"
+                  Rename-Item -Path $nupkgPath.FullName -NewName ($nupkgPath.FullName + '.zip')
+                  Expand-Archive -Path ($nupkgPath.FullName + '.zip') -DestinationPath "$(Pipeline.Workspace)/Packages/extracted/"
+                displayName: Extract Windows CLI
+
+              - powershell: |
+                  $nupkgPath = Get-Item -Path "$(Pipeline.Workspace)/Packages-CrossPlatform/*.nupkg"
+                  Rename-Item -Path $nupkgPath.FullName -NewName ($nupkgPath.FullName + '.zip')
+                  Expand-Archive -Path ($nupkgPath.FullName + '.zip') -DestinationPath "$(Pipeline.Workspace)/Packages-CrossPlatform/extracted/"
+                displayName: Extract Cross-Platform CLI
+
+              - task: UseDotNet@2
+                displayName: Use .NET 8.0
+                inputs:
+                  packageType: 'sdk'
+                  version: '8.0.301'
+
+              - task: DotNetCoreCLI@2
+                displayName: Restore
+                inputs:
+                  command: 'restore'
+                  projects: '**/UiPath.Extensions.CommandLine.E2E.Tests.csproj'
+                  feedsToUse: 'config'
+                  nugetConfigPath: 'NuGet.Config'
+
+              - task: DotNetCoreCLI@2
+                displayName: Test
+                inputs:
+                  command: 'test'
+                  projects: '**/UiPath.Extensions.CommandLine.E2E.Tests.csproj'
+                  arguments: '--filter Agent=${{ e2eTestStage.filterAgent }} --output $(Pipeline.Workspace)/Output/cli-test/bin --no-restore'
+                  publishTestResults: true
+                env:
+                  ACS_DEMO: 'True'
+                  E2E_TEST_WIN_CLI_PATH: '$(Pipeline.Workspace)/Packages/extracted/tools/uipcli.exe'
+                  E2E_TEST_X_PLATFORM_CLI_PATH: '$(Pipeline.Workspace)/Packages-CrossPlatform/extracted/tools/uipcli.dll'
+                  CLOUD_TEST_ORCHESTRATOR_EXTERNAL_APP_SECRET: '$(Cloud_TestOrchestratorExternalAppSecret)'
+
+  - stage: StopRobots
+    displayName: "Stop and Deallocate UiPath Robot VMs"
+    dependsOn: 
+      - E2E_Test_On_Windows
+      - E2E_Test_On_Linux
+    condition: always()
+    jobs:
+      - job: StopVMs
+        displayName: "Stop and deallocate Azure VMs"
+        pool:
+          name: Default
+          demands:
+            - agent.name -equals ado-ubuntu
+        steps:
+          - task: AzureCLI@2
+            displayName: "Deallocate robot-cloud-vm-1"
+            inputs:
+              azureSubscription: 'azure-resource-manager'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Deallocating robot-cloud-vm-1..."
+                az vm deallocate --resource-group acs-diploma-rg --name robot-cloud-vm-1
+                echo "robot-cloud-vm-1 deallocated successfully"
+
+          - task: AzureCLI@2
+            displayName: "Deallocate robot-cloud-vm-2"
+            inputs:
+              azureSubscription: 'azure-resource-manager'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                echo "Deallocating robot-cloud-vm-2..."
+                az vm deallocate --resource-group acs-diploma-rg --name robot-cloud-vm-2
+                echo "robot-cloud-vm-2 deallocated successfully"

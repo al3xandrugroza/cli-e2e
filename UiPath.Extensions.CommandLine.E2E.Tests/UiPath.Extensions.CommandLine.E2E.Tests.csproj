@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NuGet.Packaging" Version="6.7.1" />
+    <PackageReference Include="IdentityModel" Version="6.2.0" />
+    <PackageReference Include="UiPath.Orchestrator.Web.ClientV3" Version="24.10.0-standalone-beta.28" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<None Include="AutomationProjects\**">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="GovernanceFiles\uipath.policy.Development.Warning.json">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="GovernanceFiles\uipath.policy.Development.Error.json">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="OrchestratorConnection\**" />
+    <EmbeddedResource Remove="OrchestratorConnection\**" />
+    <None Remove="OrchestratorConnection\**" />
+  </ItemGroup>
+  
+
+  <ItemGroup>
+    <None Update="AutomationProjects\CrossPlatform\VB\Library_CrossPlatform_VB\CustomActivity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\MultipleEntryPoints_CrossPlatform_VB\FailEntryPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\MultipleEntryPoints_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\MultipleEntryPoints_CrossPlatform_VB\SuccessEntryPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\ProjectWithAnalyzeErrors_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\ProjectWithoutAnalyzeErrors_CrossPlatform_VB\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\ProjectWithPublicFeedsDependencies_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\SimpleLog_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\SleepGivenAmountOfTime_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\TestCaseWithDelay_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\TestCaseWithDelay_CrossPlatform_VB\TestCase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\TestCase_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\TestCase_CrossPlatform_VB\TestCase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\CrossPlatform\VB\WithBoolParam_CrossPlatform_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="AutomationProjects\Windows\VB\SimpleLog_Windows_VB\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+</Project>

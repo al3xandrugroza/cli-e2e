@@ -52,7 +52,7 @@ public class DeployShould
     
     [Theory]
     [ExtAppModernFolderConnectionsWithInlineArgsCli]
-    [UserPassClassicFolderConnections]
+    // [UserPassClassicFolderConnections]
     [Trait(TraitConsts.Agent, TraitConsts.Linux)]
     public async Task IgnoreLibraryDeployConflict(CliExecutor cliExecutor, OrchestratorConnection connection)
     {

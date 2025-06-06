@@ -11,6 +11,7 @@ using UiPath.Extensions.CommandLine.E2E.Tests.TestData;
 
 namespace UiPath.Extensions.CommandLine.E2E.Tests;
 
+// Test class for Pack command functionality
 public class PackShould
 {
     [Theory]

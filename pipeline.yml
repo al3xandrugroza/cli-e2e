@@ -16,12 +16,12 @@ parameters:
     default:
       - stage: "E2E_Test_On_Windows"
         displayName: "End to end tests on Windows agent"
-        vmImage: "windows-lastest"
+        agentName: "ado-windows"
         filterAgent: "Windows"
 
       - stage: "E2E_Test_On_Linux"
         displayName: "End to end tests on Linux agent"
-        vmImage: "ubuntu-latest"
+        agentName: "ado-ubuntu"
         filterAgent: "Linux"
 
 stages:
@@ -31,7 +31,9 @@ stages:
       - job: StartVMs
         displayName: "Start Azure VMs for UiPath Robots"
         pool:
-          vmImage: "ubuntu-latest"
+          name: Default
+          demands:
+            - agent.name -equals ado-ubuntu
         steps:
           - task: AzureCLI@2
             displayName: "Start robot-cloud-vm-1"
@@ -70,7 +72,9 @@ stages:
       - job: BuildPackages
         displayName: "Build and publish CLI packages"
         pool:
-          vmImage: "ubuntu-latest"
+          name: Default
+          demands:
+            - agent.name -equals ado-ubuntu
         steps:
           - task: PublishPipelineArtifact@1
             displayName: "Publish Windows CLI Package"
@@ -92,7 +96,9 @@ stages:
         jobs:
           - job: ${{ e2eTestStage.stage }}
             pool:
-              vmImage: ${{ e2eTestStage.vmImage }}
+              name: Default
+              demands:
+                - agent.name -equals ${{ e2eTestStage.agentName }}
             workspace:
               clean: all
             timeoutInMinutes: 180
@@ -152,7 +158,9 @@ stages:
       - job: StopVMs
         displayName: "Stop and deallocate Azure VMs"
         pool:
-          vmImage: "ubuntu-latest"
+          name: Default
+          demands:
+            - agent.name -equals ado-ubuntu
         steps:
           - task: AzureCLI@2
             displayName: "Deallocate robot-cloud-vm-1"

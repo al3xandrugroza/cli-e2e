@@ -144,6 +144,7 @@ stages:
                   arguments: '--filter Agent=${{ e2eTestStage.filterAgent }} --output $(Pipeline.Workspace)/Output/cli-test/bin --no-restore'
                   publishTestResults: true
                 env:
+                  ACS_DEMO: 'True'
                   E2E_TEST_WIN_CLI_PATH: '$(Pipeline.Workspace)/Packages/extracted/tools/uipcli.exe'
                   E2E_TEST_X_PLATFORM_CLI_PATH: '$(Pipeline.Workspace)/Packages-CrossPlatform/extracted/tools/uipcli.dll'
                   CLOUD_TEST_ORCHESTRATOR_EXTERNAL_APP_SECRET: '$(Cloud_TestOrchestratorExternalAppSecret)'

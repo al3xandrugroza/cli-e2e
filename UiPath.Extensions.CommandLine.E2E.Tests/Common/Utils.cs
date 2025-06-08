@@ -11,6 +11,7 @@ namespace UiPath.Extensions.CommandLine.E2E.Tests.Common;
 
 internal static class Utils
 {
+    // Test change for PR
 
     public static void AssertTestReport(string reportPath, string exepectedProjectName, int expectedNumberOfTests = 1, int expectedNumberOfFailures = 0,
         int expectedNumberOfErrors = 0, int expectedNumberOfCancellations = 0, TestReportType reportType = TestReportType.uipath, bool robotLogsAttachment = false)

@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '1.16.1'
+}
+
+group 'com.clie2e'
+version '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    mavenCentral()
+}
+
+intellij {
+    type = 'RD'
+    version = '2025.1'
+    downloadSources = false
+    updateSinceUntilBuild = false
+}
+
+patchPluginXml {
+    sinceBuild = '251'
+}
+
+tasks {
+    buildSearchableOptions {
+        enabled = false
+    }
+}

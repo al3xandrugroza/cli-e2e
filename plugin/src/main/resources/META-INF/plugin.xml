@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>com.clie2e.examples</id>
+    <name>CLI E2E Examples</name>
+    <vendor>al3xandrugroza</vendor>
+    <description><![CDATA[
+    Provides a searchable collection of CLI E2E test examples for easy reference and reuse.
+    Access examples via Ctrl+Shift+A and search for "CLI E2E Examples".
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.rider</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+
+    <actions>
+        <action id="CliE2EExamples.ShowExamples"
+                class="com.clie2e.examples.CliE2EExamplesAction"
+                text="CLI E2E Examples"
+                description="Show CLI E2E test examples">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>

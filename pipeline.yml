@@ -9,6 +9,7 @@ pr:
     exclude:
       - README.md
       - .gitignore
+      - plugin/**
 
 parameters:
   - name: E2E_TEST_PIPELINE_STAGES

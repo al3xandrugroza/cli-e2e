@@ -21,6 +21,7 @@ public class PackShould
     [Trait(TraitConsts.Agent, TraitConsts.Linux)]
     public async Task OutputAProcessPackageOnAnyPlatformGivenAProcess(CliExecutor cliExecutor)
     {
+        // some changes
         var projectJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Entries.AutomationProjects, Entries.CrossPlatform, Entries.VB, Entries.SimpleLog_CrossPlatform_VB, Entries.ProjectJson);
         
         var result = await cliExecutor.Pack(projectJsonPath, outputType: OutputType.Process);

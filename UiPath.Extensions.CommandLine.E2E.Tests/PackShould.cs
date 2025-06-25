@@ -35,6 +35,7 @@ public class PackShould
     [Trait(TraitConsts.Agent, TraitConsts.Linux)]
     public async Task PackWithTheOutputTypeSpecifiedInProjectJsonByDefault(CliExecutor cliExecutor)
     {
+        // bug fix
         var projectJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Entries.AutomationProjects, Entries.CrossPlatform, Entries.VB, Entries.SimpleLog_CrossPlatform_VB, Entries.ProjectJson);
         
         var result = await cliExecutor.Pack(projectJsonPath);

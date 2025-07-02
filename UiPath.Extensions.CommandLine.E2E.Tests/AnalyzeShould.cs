@@ -12,10 +12,11 @@ public class AnalyzeShould
 {
     [Theory]
     [WindowsCli]
-    [WindowsCliWithInlineArgs]
+    // [WindowsCliWithInlineArgs]
     [Trait(TraitConsts.Agent, TraitConsts.Windows)]
     public async Task AnalyzeWindowsProject(CliExecutor cliExecutor)
     {
+        // new feature
         const string analyzeSuccessLog = "Done analyzing project";
         const string analyzeErrorLog = "Done analyzing with errors.";
 

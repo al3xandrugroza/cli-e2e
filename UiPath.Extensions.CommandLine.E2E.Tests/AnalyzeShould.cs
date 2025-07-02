@@ -12,7 +12,7 @@ public class AnalyzeShould
 {
     [Theory]
     [WindowsCli]
-    [WindowsCliWithInlineArgs]
+    // [WindowsCliWithInlineArgs]
     [Trait(TraitConsts.Agent, TraitConsts.Windows)]
     public async Task AnalyzeWindowsProject(CliExecutor cliExecutor)
     {

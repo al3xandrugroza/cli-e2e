@@ -16,6 +16,7 @@ public class AnalyzeShould
     [Trait(TraitConsts.Agent, TraitConsts.Windows)]
     public async Task AnalyzeWindowsProject(CliExecutor cliExecutor)
     {
+        // feature
         const string analyzeSuccessLog = "Done analyzing project";
         const string analyzeErrorLog = "Done analyzing with errors.";
 
